@@ -1,0 +1,149 @@
+	body{
+		font-family: "Pontano Sans", Arial,sans-serif;
+		background-color:#fff;
+	}
+	a{
+		text-decoration:none;	
+	}
+
+	a:hover{
+		text-decoration:underline;
+	}
+
+
+	input[type=button],input[type=submit]{
+		border: 1px solid #29447E;
+		background-color:#5973A8;
+		color:#fff;
+		padding:3px;
+		font-weight:bold;
+		cursor:pointer;
+	}
+
+	#header{		
+		width:100%;
+		color:#fff;
+		background-color:#3B5998;
+		height:60px;
+		border-bottom: 1px solid #033E6B;		
+	}
+
+	#site_title, #site_title > a {
+		color:#fff;
+	}
+
+	#site_title > a > h1{
+		margin-bottom:0;
+	}
+
+	#top_menu{
+		margin-right:15px;
+		float:right;
+	}
+
+	#top_menu > ul{
+		margin-top:20px;
+	}
+
+	#top_menu > ul > li{
+		display:inline;
+	}
+
+	#top_menu > ul > li > a{
+		color:#fff;
+		font-weight:normal;
+	}
+
+	#footer {
+	   position:fixed;
+	   left:0px;
+	   bottom:0px;
+	   height:30px;
+	   width:100%;
+	   border-top:1px solid #999;
+	   background-color:#ddd;
+	}	
+
+	/*begin:login page style*/
+	.login_form{
+		border: 1px solid #033E6B;		
+		padding: 5px 5px 5px 15px;
+		border-radius:5px;
+		-moz-border-radius:5px;
+		background-color:#fff;
+	}
+
+	.login_form > form > fieldset > legend{
+		font-size:x-large;
+		font-weight:bold;
+	}
+
+	.login_form > form > fieldset > input{
+		margin: 2px 0 10px 0;
+	}
+
+	.login_form > form > fieldset > label{
+		cursor:pointer;
+	}
+	/*end:login page style*/
+
+	/*begin:input form style*/
+	.input_form{
+		padding: 5px 5px 5px 15px;
+		background-color:#F2F2F2;
+		border-bottom:1px solid #aaa;
+
+	}
+
+	.input_form > form > fieldset > legend{
+		font-size:x-large;
+		font-weight:bold;
+		padding-bottom:10px;
+		width:100%;
+	}
+
+	.input_form > form > fieldset > div > div.input > input{
+		margin: 2px 0 10px 0;
+		padding:3px;
+		border: 1px solid #BDC7D8;
+	}
+
+	.input_form > form > fieldset > div > div.input{
+		width:50%;
+		float:left;
+	}
+
+	.input_form > form > fieldset > div > div.label{
+		width:40%;
+		text-align:right;
+		float:left;
+		padding:3px;
+
+	}
+
+	.input_form > form > fieldset > div > div.label > label:after{
+		content:": ";
+	}
+
+	.input_form > form > fieldset > div > div.label > label{
+		cursor:pointer;
+		color:#666666;
+		font-weight:bold;
+	}
+
+	.input_form > form > fieldset > div{
+		padding:5px;
+	}
+
+	.input_form > form > fieldset > div.buttons{
+		height:20px;
+	}
+
+	.input_form > form > fieldset > div.buttons > div.left_block{
+		float:left;
+	}
+
+	.input_form > form > fieldset > div.buttons > div.right_block{
+		float:right;
+	}
+	/*end:input form style*/

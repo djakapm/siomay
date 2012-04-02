@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Gudang Virtual - Agent Personal</title>
-</head>
-<body>
-
-<div id="container">
+<?=$this->load->view("header",true)?>
+<!-- begin:content -->
+<div class="container_16">
 	<h1>Hi, <?=$agent_name?> welcome to Gudang Virtual</h1>
 	<p>What would you like to do?</p>
 	<ul>
@@ -17,6 +11,5 @@
 	</ul> 
 
 </div>
-
-</body>
-</html>
+<!-- end:content -->
+<?=$this->load->view("footer",true)?>

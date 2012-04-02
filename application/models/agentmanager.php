@@ -26,6 +26,7 @@ class AgentManager extends CI_Model {
     }
 
     public function get_inbox($agent_id){
+   	 	$this->db->order_by("sent_date","desc");
     	$query = $this->db->get_where("agent_inbox",array("to_id"=>$agent_id));
     	$rows = $query->result();
     	$inbox_items = array();
