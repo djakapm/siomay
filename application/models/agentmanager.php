@@ -97,6 +97,12 @@ class AgentManager extends CI_Model {
 		return $this->db->insert_id();		
 	}
 
+	public function update($agent){
+		$this->db->where("id",$agent["id"]);
+		$this->db->update("agent",$agent);
+		return $agent["id"];
+	}
+
 	public function get_by_email($email){
 		$agent = array();
 		$query = $this->db->get_where("agent",array("email"=>$email));

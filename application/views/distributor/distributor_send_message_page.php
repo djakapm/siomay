@@ -17,6 +17,7 @@
 <input type="submit" value="Send"/>
 <input type="button" value="Cancel" onclick="javascript:location.href='<?=site_url("distributor/manage_agents/".$distributor_id)?>'"/>
 </form>
+<p>Message length limited to 1000 characters long. Please keep message brief and clear.</p>
 </div>
 
 </body>

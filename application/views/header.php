@@ -20,7 +20,22 @@
 	</div>
 	<div id="top_menu">
 		<ul>
-			<li><a href="<?=base_url()?>">Account</a></li>
+			<?php
+			$logged_in = $this->session->userdata("logged_in");
+			if($logged_in){
+				$personal_url = $this->session->userdata("personal_url");
+				$profile_url = $this->session->userdata("profile_url");
+				$account_url = $this->session->userdata("account_url");
+				$log_out_url = $this->session->userdata("log_out_url");
+				$name = $this->session->userdata("name");
+			?>
+			<li><a href="<?=$personal_url?>">Hi, <?=$name?> welcome back!</a></li>
+			<li><a href="<?=$profile_url?>">Profile</a></li>
+			<li><a href="<?=$account_url?>">Account</a></li>
+			<li><a href="<?=$log_out_url?>">Log Out</a></li>
+			<?php
+			}
+			?>
 		</ul>
 	</div>
 </div>	

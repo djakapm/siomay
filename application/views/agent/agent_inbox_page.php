@@ -15,7 +15,7 @@
 				<a href="<?=site_url("agent/view_inbox_item/".$inbox_item["id"])?>">
 					<div style="display:block;height:100%;float:left;width:50%">
 						<?=$inbox_item["from_name"]?>
-						<p><?=word_limiter($inbox_item["message"],15)?></p>
+						<p><?=word_limiter($inbox_item["message"],10)?></p>
 					</div>
 					<div style="display:block;height:100%;float:right;width:50%;text-align:right">
 						<p><?=date("F j, Y, g:i a",strtotime($inbox_item["sent_date"]))?></p>

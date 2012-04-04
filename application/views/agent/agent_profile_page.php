@@ -3,7 +3,7 @@
 <div class="container_16">
 	<div class="prefix_4 grid_8">
 			<div class="input_form">
-				<form method="post" action="<?=site_url("agent/do_login")?>">
+				<form method="post" action="<?=site_url("agent/do_save_profile")?>">
 					<fieldset>
 							<legend>Agent Profile</legend>
 							<div>
@@ -33,6 +33,8 @@
 								</div>
 							</div>
 							<div class="clear"></div>
+							<fieldset class="sub_fieldset">
+									<legend>Address</legend>
 							<div>
 								<div class="label">							
 								<label for="agent_city">City</label>
@@ -59,13 +61,14 @@
 								<input type="text" id="agent_zip_code" name="agent_zip_code" value="<?=$agent_zip_code?>"/>
 								</div>
 							</div>
+							</fieldset>
 							<div class="clear"></div>
 							<div class="buttons">
 								<div class="left_block">
-									<input type="button" value="Back to Personal page" onclick="javascript:location.href='<?=site_url("agent/personal/".$agent_id)?>'"/>
+									<input type="button" value="Back to Personal page" onclick="cancel()"/>
 								</div>
 								<div class="right_block">
-									<input type="button" value="Save Profile"/>
+									<input type="submit" value="Save Profile"/>
 								</div>
 							</div>
 					</fieldset>
@@ -73,5 +76,11 @@
 			</div>
 	</div>
 </div>
+<script type="text/javascript">
+function cancel(){
+	location.href='<?=site_url("agent/personal/".$agent_id)?>';
+}
+</script>
+
 <!-- end:content -->
 <?=$this->load->view("footer",true)?>

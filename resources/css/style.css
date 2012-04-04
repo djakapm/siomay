@@ -108,6 +108,12 @@
 		border: 1px solid #BDC7D8;
 	}
 
+	.input_form > form > fieldset > div > div.input > select{
+		margin: 2px 0 10px 0;
+		padding:3px;
+		border: 1px solid #BDC7D8;
+	}
+
 	.input_form > form > fieldset > div > div.input{
 		width:50%;
 		float:left;
@@ -147,3 +153,58 @@
 		float:right;
 	}
 	/*end:input form style*/
+
+	.sub_fieldset{
+		border-top: 1px solid #ccc;
+		padding: 3px 3px 3px 0;
+	}
+
+	.sub_fieldset > legend{
+		font-weight:bold;
+		padding: 5px;
+		margin-bottom:30px;
+		border-bottom: 1px solid #ccc;
+	}
+
+	.sub_fieldset > div > div.input > input{
+		margin: 2px 0 10px 0;
+		padding:3px;
+		border: 1px solid #BDC7D8;
+	}
+
+	.sub_fieldset > div > div.input > select{
+		margin: 2px 0 10px 0;
+		padding:3px;
+		border: 1px solid #BDC7D8;
+	}
+
+	.sub_fieldset > div > div.input{
+		width:50%;
+		float:left;
+	}
+
+	.sub_fieldset > div > div.label{
+		width:40%;
+		text-align:right;
+		float:left;
+		padding:3px;
+
+	}
+
+	.sub_fieldset > div > div.label > label:after{
+		content:": ";
+	}
+
+	.sub_fieldset > div > div.label > label{
+		cursor:pointer;
+		color:#666666;
+		font-weight:bold;
+	}
+
+	.block{
+		padding: 5px 5px 5px 15px;
+		background-color:#F2F2F2;
+		border-bottom:1px solid #aaa;
+
+	}
+
