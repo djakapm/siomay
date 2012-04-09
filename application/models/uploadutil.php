@@ -8,7 +8,9 @@ class UploadUtil extends CI_Model {
 
 
     public function archive_product_file($source_file,$destination_file,$source_folder,$destination_folder){
-        mkdir($destination_folder,0777);
+        if(!file_exists($destination_folder)){
+            mkdir($destination_folder,0777);            
+        }
         copy($source_file,$destination_file);        
         $this->remove_old_product_folder($source_folder);
     }

@@ -147,15 +147,19 @@ class Distributor extends CI_Controller {
             $this->views["notification"]);        
     	}
     	else{
-	    	$user_data = array("email"=> $distributor_email,"logged_in" => TRUE);
-			$this->session->set_userdata($user_data);    
-			redirect("/distributor/personal/".$authenticated["id"], "location");
+            $distributor = $this->dm->get_by_email($distributor_email);
+            $this->sm->create_distributor_session($distributor);
+            redirect("/distributor/personal", "location");
+
+	  //   	$user_data = array("email"=> $distributor_email,"logged_in" => TRUE);
+			// $this->session->set_userdata($user_data);    
+			// redirect("/distributor/personal/".$authenticated["id"], "location");
     	}
     }
 
     public function do_logout(){
     	$this->session->sess_destroy();
-    	redirect("/distributor/login", "locations");
+    	redirect("", "locations");
     }
 
 	public function register()
@@ -165,9 +169,19 @@ class Distributor extends CI_Controller {
 		$this->load->view($this->views["register"],$params);
 	}
 
+    private function is_logged_in(){
+        $is_logged_in = $this->sm->is_logged_in();
+        if(!$is_logged_in){
+            $this->nm->notify("You are not logged in. Please log in first.","Back to Login page","",
+            $this->views["notification"]);          
+        }
+
+        return $is_logged_in;
+    }
+    
 	public function personal(){
-		$distributor_id = $this->uri->segment(3);
-		$distributor = $this->dm->get($distributor_id);
+        if(!$this->is_logged_in()){return;}
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
 		if(!empty($distributor)) {			
 			$this->load->view($this->views["personal"],$distributor);
 		}
@@ -178,7 +192,8 @@ class Distributor extends CI_Controller {
 	}
 
 	public function profile(){
-		$distributor_id = $this->uri->segment(3);
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+		$distributor_id = $distributor["distributor_id"];
 		$distributor = $this->dm->get($distributor_id);
 		if(!empty($distributor)) {		
 			$city = $this->bd->city($distributor["distributor_city"]);	

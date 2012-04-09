@@ -14,7 +14,7 @@ class order extends CI_Controller {
     {
         parent::__construct();
 		$this->load->model("basicdata","bd");
-        // $this->load->model("distributormanager","dm");
+        $this->load->model("distributormanager","dm");
         $this->load->model("productmanager","pm");
         $this->load->model("ordermanager","om");
         $this->load->model("agentmanager","am");
@@ -22,7 +22,21 @@ class order extends CI_Controller {
         // $this->load->model("securitymanager","sm");
     }
 
-    public function delete_order($distributor_id,$order_id){
+    private function is_logged_in(){
+        $is_logged_in = $this->sm->is_logged_in();
+        if(!$is_logged_in){
+            $this->nm->notify("You are not logged in. Please log in first.","Back to Login page","",
+            $this->views["notification"]);          
+        }
+
+        return $is_logged_in;
+    }
+
+
+    public function delete_order($order_id){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));        
+        $distributor_id = $this->input->post("distributor_id");
+
         $products = $this->pm->get_products($distributor_id);
         $product_selections = array();
         foreach($products as $product){
@@ -41,6 +55,7 @@ class order extends CI_Controller {
     }
 
     public function do_delete_order(){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));        
         $distributor_id = $this->input->post("distributor_id");
         $order_id = $this->input->post("order_id");
         $updated_date = $this->bd->get_current_date_in_mysql_format();
@@ -51,7 +66,9 @@ class order extends CI_Controller {
 
     }
 
-    public function edit_order($distributor_id,$order_id){
+    public function edit_order($order_id){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $products = $this->pm->get_products($distributor_id);
         $product_selections = array();
         foreach($products as $product){
@@ -70,6 +87,7 @@ class order extends CI_Controller {
     }
 
     public function do_edit_order(){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));        
         $distributor_id = $this->input->post("distributor_id");
         $order_id = $this->input->post("order_id");
         $amount_of_goods = $this->input->post("amount_of_goods");
@@ -85,14 +103,24 @@ class order extends CI_Controller {
 
     }
 
-    public function view_orders($distributor_id){
-        $data = array();
-        $data["distributor_id"] = $distributor_id;
-        $data["orders"] = $this->om->get_orders($distributor_id);
-        $this->load->view($this->views["order"],$data);        
+    public function view_orders(){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        if(!empty($distributor)) {          
+            $data = array();
+            $data["distributor_id"] = $distributor["distributor_id"];
+            $data["orders"] = $this->om->get_orders($distributor["distributor_id"]);
+            $this->load->view($this->views["order"],$data);        
+        }
+        else{
+            $this->nm->notify("Distributor not found.","Back to Login page","",
+            $this->views["notification"]);        
+        }
+
     }
 
-    public function add_order($distributor_id){
+    public function add_order(){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $products = $this->pm->get_products($distributor_id);
         $product_selections = array();
         foreach($products as $product){
@@ -110,7 +138,8 @@ class order extends CI_Controller {
     }
 
     public function do_add_order(){
-        $distributor_id = $this->input->post("distributor_id");
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $product_id = $this->input->post("product_name");
         $amount_of_goods = $this->input->post("amount_of_goods");
         $product_price = $this->input->post("product_price");

@@ -20,6 +20,12 @@
 		cursor:pointer;
 	}
 
+	input[readonly="readonly"] {
+		border: 1px solid #ccc;
+		background-color:#fff;
+		color:#ccc;
+	}
+
 	#header{		
 		width:100%;
 		color:#fff;
@@ -109,6 +115,12 @@
 	}
 
 	.input_form > form > fieldset > div > div.input > select{
+		margin: 2px 0 10px 0;
+		padding:3px;
+		border: 1px solid #BDC7D8;
+	}
+
+	.input_form > form > fieldset > div > div.input > textarea{
 		margin: 2px 0 10px 0;
 		padding:3px;
 		border: 1px solid #BDC7D8;
@@ -208,3 +220,53 @@
 
 	}
 
+	.personal_menu{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+
+	.personal_menu > li{
+		margin:5px;
+		padding:0;
+		border-bottom:1px solid #ccc;
+	}
+
+	.data_table{
+		border: 1px solid #000;
+	}
+
+	.data_table > thead > tr > th{
+		font-weight:bold;
+		padding:5px;
+		background-color:#ccc;
+		text-align:center;
+		border-bottom:1px solid #000;
+		border-left:1px solid #000;
+		border-right:1px solid #000;
+	}	
+
+	.data_table > tbody > tr > td{
+		font-weight:normal;
+		padding:5px;
+		text-align:center;
+		border-left:1px solid #000;
+		border-right:1px solid #000;
+	}
+
+	.data_table > tbody > tr:nth-child(even){
+		background-color:#eee;
+	}	
+
+	.data_table > tbody > tr:nth-child(odd){
+		background-color:#fff;
+	}		
+
+	.data_table > tbody > tr:hover{
+		background-color:#3B5998;
+		color:#fff;
+	}
+
+	.data_table > tbody > tr:hover > td > a{
+		color:#fff;
+	}	

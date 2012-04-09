@@ -1,7 +1,11 @@
 <?=$this->load->view("header",true)?>
 <!-- begin:content -->
 <div class="container_16">
-	<div class="prefix_4 grid_8">
+	<div class="grid_1">
+		<h1>Inbox</h1>
+	</div>
+	<div class="clear"></div>
+	<div class="prefix_2 grid_12">
 		<div class="block">
 		<h1><?=$inbox_item["from_name"]?></h1>
 		<p><?=$inbox_item["message"]?></p>

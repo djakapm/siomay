@@ -18,17 +18,22 @@ class Inventory extends CI_Controller {
         parent::__construct();
 		$this->load->model("basicdata","bd");
         $this->load->model("productmanager","pm");
+        $this->load->model("distributormanager","dm");
         $this->load->model("notificationmanager","nm");
     }
 
-    public function add_bulk_product($distributor_id){
+    public function add_bulk_product(){
+       $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+       $distributor_id = $distributor["distributor_id"];
        $data = array();
        $data["distributor_id"] = $distributor_id;
        $this->load->view($this->views["add_bulk_inventory"],$data);
     }
 
     public function do_add_bulk_product(){
-        $distributor_id = $this->input->post("distributor_id");
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
+        
         $result = $this->uploadutil->upload_bulk_product();
 
         if($result["is_success"]){
@@ -72,15 +77,18 @@ class Inventory extends CI_Controller {
 
             $this->pm->create_bulk_products($products,$distributor_id);
             $this->nm->notify("Bulk product created successfully.","Back to Inventory page",
-            "distributor/view_products/".$distributor_id,$this->views["notification"]);
+            "inventory/view_products/",$this->views["notification"]);
         }
         else{
             $this->nm->notify("Failed to upload bulk product file. ".$result["message"]["error"],"Back to Inventory page",
-            "inventory/view_products/".$distributor_id,$this->views["notification"]);
+            "inventory/view_products/",$this->views["notification"]);
         }               
     }
 
-    public function delete_product($distributor_id,$product_id){
+    public function delete_product($product_id){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
+
         $data = array();
         $product = $this->pm->get_product($distributor_id,$product_id);
         $data["product"] = $product;
@@ -92,7 +100,8 @@ class Inventory extends CI_Controller {
     }
 
     public function do_delete_product(){
-        $distributor_id = $this->input->post("distributor_id");
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $product_id = $this->input->post("product_id");
         $product = $this->pm->get_product($distributor_id,$product_id);
         $source_file = "./".$product["product_image_path"];
@@ -107,7 +116,9 @@ class Inventory extends CI_Controller {
             "inventory/view_products/".$distributor_id,$this->views["notification"]);
     }
 
-    public function edit_product($distributor_id,$product_id){
+    public function edit_product($product_id){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $data = array();
         $product = $this->pm->get_product($distributor_id,$product_id);
         $data["product"] = $product;
@@ -119,7 +130,8 @@ class Inventory extends CI_Controller {
     }
 
     public function do_edit_product(){
-        $distributor_id = $this->input->post("distributor_id");
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $product_id = $this->input->post("product_id");
         $product_name = $this->input->post("product_name");
         $product_category = $this->input->post("product_category");
@@ -153,7 +165,9 @@ class Inventory extends CI_Controller {
         "inventory/view_products/".$distributor_id,$this->views["notification"]);
     }
 
-    public function add_product($distributor_id){
+    public function add_product(){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $data = array();
         $data["distributor_id"] = $distributor_id;
         $data["product_categories"] = $this->bd->product_categories($distributor_id);
@@ -162,7 +176,8 @@ class Inventory extends CI_Controller {
     }
 
     public function do_add_product(){
-        $distributor_id = $this->input->post("distributor_id");
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
         $product_name = $this->input->post("product_name");
         $product_category = $this->input->post("product_category");
         $product_stock = $this->input->post("product_stock");
@@ -190,14 +205,21 @@ class Inventory extends CI_Controller {
     }
 
 
-    public function view_product($distributor_id,$product_id){
+    public function view_product($product_id){
         $data = array();
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
+
         $data["distributor_id"] = $distributor_id;
         $data["product"] = $this->pm->get_product($distributor_id,$product_id);
         $this->load->view($this->views["inventory_item"],$data);
     }
 
-    public function view_products($distributor_id){
+    public function view_products(){
+        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
+        $distributor_id = $distributor["distributor_id"];
+
+        $distributor_id = $distributor["distributor_id"];
         $data = array();
         $data["distributor_id"] = $distributor_id;
         $data["products"] = $this->pm->get_products($distributor_id);

@@ -29,7 +29,7 @@
 				$log_out_url = $this->session->userdata("log_out_url");
 				$name = $this->session->userdata("name");
 			?>
-			<li><a href="<?=$personal_url?>">Hi, <?=$name?> welcome back!</a></li>
+			<li>Hi, <a href="<?=$personal_url?>"><?=$name?></a> welcome back!</li>
 			<li><a href="<?=$profile_url?>">Profile</a></li>
 			<li><a href="<?=$account_url?>">Account</a></li>
 			<li><a href="<?=$log_out_url?>">Log Out</a></li>

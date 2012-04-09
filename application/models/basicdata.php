@@ -95,7 +95,7 @@ class Basicdata extends CI_Model {
 		$rows = $query->result();
 		$cities = array();
 		foreach($rows as $row){
-			$cities[] = array("id"=>$row->kota_id."_".$row->propinsi_id,"name"=>$row->kota_kabupaten." (".$row->propinsi.")");
+			$cities[$row->kota_id."_".$row->propinsi_id] = $row->kota_kabupaten." (".$row->propinsi.")";
 		}
 
 		return $cities;

@@ -55,16 +55,8 @@
 							<div class="label">
 								<label for="agent_city">City</label>
 							</div>
-								<div class="input">
-								<select id="agent_city" name="agent_city">
-								<?php
-									foreach($cities as $city){
-								?>
-									<option value="<?=$city["id"]?>"><?=$city["name"]?></option>
-								<?php
-								}
-								?>
-								</select>
+							<div class="input">
+								<?=form_dropdown("agent_city", $cities,"","id=\"agent_city\"")?>
 							</div>
 						</div>
 						<div>

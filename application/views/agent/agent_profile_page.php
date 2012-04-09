@@ -1,7 +1,7 @@
 <?=$this->load->view("header",true)?>
 <!-- begin:content -->
 <div class="container_16">
-	<div class="prefix_4 grid_8">
+	<div class="prefix_1 grid_15">
 			<div class="input_form">
 				<form method="post" action="<?=site_url("agent/do_save_profile")?>">
 					<fieldset>
@@ -37,10 +37,10 @@
 									<legend>Address</legend>
 							<div>
 								<div class="label">							
-								<label for="agent_city">City</label>
+									<label for="agent_city">City</label>
 								</div>
 								<div class="input">
-								<input type="text" id="agent_city" name="agent_city" value="<?=$agent_city?>"/>
+									<?=form_dropdown("agent_city", $cities,$agent_city,"id=\"agent_city\"")?>
 								</div>
 							</div>
 							<div class="clear"></div>

@@ -17,7 +17,7 @@ class Agent extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-		$this->load->model("basicdata");
+		$this->load->model("basicdata","bd");
 		$this->load->model("agentmanager","am");
 		$this->load->model("distributormanager","dm");
         $this->load->model("securitymanager","sm");
@@ -91,8 +91,6 @@ class Agent extends CI_Controller {
     	if($authenticated["status"] === FALSE){
 			$this->nm->notify($authenticated["message"],"Back to Login page","",
 			$this->views["notification"]);
-
-
     	}
     	else{
     		$agent = $this->am->get_by_email($agent_email);
@@ -108,7 +106,7 @@ class Agent extends CI_Controller {
 
 	public function register()
 	{
-		$cities = $this->basicdata->cities();
+		$cities = $this->bd->cities();
 		$params = array("cities"=>$cities);
 		$this->load->view($this->views["register"],$params);
 	}
@@ -116,7 +114,7 @@ class Agent extends CI_Controller {
 	private function is_logged_in(){
 		$is_logged_in = $this->sm->is_logged_in();
 		if(!$is_logged_in){
-			$this->nm->notify("You are not logged in. Pleas log in first.","Back to Login page","",
+			$this->nm->notify("You are not logged in. Please log in first.","Back to Login page","",
 			$this->views["notification"]);			
 		}
 
@@ -142,12 +140,12 @@ class Agent extends CI_Controller {
 		$agent_id = $agent["agent_id"];
 		$agent = $this->am->get($agent_id);
 		if(!empty($agent)) {		
-			$city = $this->basicdata->city($agent["agent_city"]);	
-			$agent["agent_city"] = $city["name"];
+			$cities = $this->bd->cities();
+			$agent["cities"] = $cities;
 			$this->load->view($this->views["profile"],$agent);
 		}		
 		else{
-			$this->nm->notify("Agent not found.","Back to Login page","agent/login",
+			$this->nm->notify("Agent not found.","Back to Login page","",
 			$this->views["notification"]);
 				
 		}
@@ -170,6 +168,7 @@ class Agent extends CI_Controller {
 		$agent["name"] = $agent_name;
 		$agent["phone_number"] = $agent_phone_number;
 		$agent["email"] = $agent_email;
+		$agent["city_id"] = $agent_city;
 		$agent["address"] = $agent_address;
 		$agent["zip_code"] = $agent_zip_code;
 		$this->am->update($agent);		
@@ -184,7 +183,7 @@ class Agent extends CI_Controller {
 		$agent_id = $agent["agent_id"];
 		$agent = $this->am->get($agent_id);
 		if(!empty($agent)) {		
-			$city = $this->basicdata->city($agent["agent_city"]);	
+			$city = $this->bd->city($agent["agent_city"]);	
 			$agent["agent_city"] = $city["name"];
 			$this->load->view($this->views["account"],$agent);
 		}		

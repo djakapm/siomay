@@ -74,19 +74,35 @@ class SecurityManager extends CI_Model {
 	}
 
 	public function create_agent_session($agent){
-			$email = $agent["agent_email"];
-    		$name = $agent["agent_name"];
-	    	$user_data = array(
-		    "email" => $email,
-		    "name" => $name,
-	    	"logged_in" => TRUE,
-	    	"role"=>"agent",
-	    	"personal_url" => site_url("agent/personal"),
-	    	"profile_url" => site_url("agent/profile"),
-	    	"account_url" => site_url("agent/account"),
-	    	"log_out_url" => site_url("agent/do_logout")
-	    	);
-	    	$this->create_session($user_data);		
+		$email = $agent["agent_email"];
+		$name = $agent["agent_name"];
+    	$user_data = array(
+	    "email" => $email,
+	    "name" => $name,
+    	"logged_in" => TRUE,
+    	"role"=>"agent",
+    	"personal_url" => site_url("agent/personal"),
+    	"profile_url" => site_url("agent/profile"),
+    	"account_url" => site_url("agent/account"),
+    	"log_out_url" => site_url("agent/do_logout")
+    	);
+    	$this->create_session($user_data);		
+	}
+
+	public function create_distributor_session($distributor){
+		$email = $distributor["distributor_email"];
+		$name = $distributor["distributor_name"];
+    	$user_data = array(
+	    "email" => $email,
+	    "name" => $name,
+    	"logged_in" => TRUE,
+    	"role"=>"distributor",
+    	"personal_url" => site_url("distributor/personal"),
+    	"profile_url" => site_url("distributor/profile"),
+    	"account_url" => site_url("distributor/account"),
+    	"log_out_url" => site_url("distributor/do_logout")
+    	);
+    	$this->create_session($user_data);				
 	}
 	    
 }

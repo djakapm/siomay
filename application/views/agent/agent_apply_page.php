@@ -1,6 +1,10 @@
 <?=$this->load->view("header",true)?>
 <!-- begin:content -->
 <div class="container_16">
+	<div class="grid_6">
+		<h1>Apply to Distributor</h1>
+	</div>
+	<div class="clear"></div>
 	<div class="grid_16">
 		<div class="input_form">
 			<form method="post" action="<?=site_url("agent/do_search_distributor_by_email")?>">
