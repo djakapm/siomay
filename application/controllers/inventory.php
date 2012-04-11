@@ -20,9 +20,11 @@ class Inventory extends CI_Controller {
         $this->load->model("productmanager","pm");
         $this->load->model("distributormanager","dm");
         $this->load->model("notificationmanager","nm");
+        $this->load->model("securitymanager","sm");        
     }
 
     public function add_bulk_product(){
+       if(!$this->is_logged_in()){return;}
        $distributor = $this->dm->get_by_email($this->session->userdata("email"));
        $distributor_id = $distributor["distributor_id"];
        $data = array();
@@ -31,6 +33,7 @@ class Inventory extends CI_Controller {
     }
 
     public function do_add_bulk_product(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         
@@ -86,6 +89,7 @@ class Inventory extends CI_Controller {
     }
 
     public function delete_product($product_id){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
 
@@ -100,6 +104,7 @@ class Inventory extends CI_Controller {
     }
 
     public function do_delete_product(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $product_id = $this->input->post("product_id");
@@ -117,6 +122,7 @@ class Inventory extends CI_Controller {
     }
 
     public function edit_product($product_id){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $data = array();
@@ -130,6 +136,7 @@ class Inventory extends CI_Controller {
     }
 
     public function do_edit_product(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $product_id = $this->input->post("product_id");
@@ -166,6 +173,7 @@ class Inventory extends CI_Controller {
     }
 
     public function add_product(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $data = array();
@@ -176,6 +184,7 @@ class Inventory extends CI_Controller {
     }
 
     public function do_add_product(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $product_name = $this->input->post("product_name");
@@ -206,6 +215,7 @@ class Inventory extends CI_Controller {
 
 
     public function view_product($product_id){
+        if(!$this->is_logged_in()){return;}
         $data = array();
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
@@ -216,6 +226,7 @@ class Inventory extends CI_Controller {
     }
 
     public function view_products(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
 
@@ -226,4 +237,13 @@ class Inventory extends CI_Controller {
         $this->load->view($this->views["inventory"],$data);
     }    
 
+    private function is_logged_in(){
+        $is_logged_in = $this->sm->is_logged_in();
+        if(!$is_logged_in){
+            $this->nm->notify("You are not logged in. Please log in first.","Back to Login page","",
+            $this->views["notification"]);          
+        }
+
+        return $is_logged_in;
+    }
 }

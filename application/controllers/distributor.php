@@ -30,6 +30,8 @@ class Distributor extends CI_Controller {
     }
 
     public function broadcast_message(){
+        if(!$this->is_logged_in()){return;}
+
         $distributor_id = $this->input->post("distributor_id");
         $agent_ids = $this->input->post("selected_agent_id");
         if(empty($agent_ids)){
@@ -46,6 +48,7 @@ class Distributor extends CI_Controller {
     }
 
     public function do_broadcast_message(){
+        if(!$this->is_logged_in()){return;}
         $distributor_id = $this->input->post("distributor_id");
         $distributor_name = $this->input->post("distributor_name");
         $agent_ids = explode(",",$this->input->post("agent_ids"));
@@ -61,6 +64,7 @@ class Distributor extends CI_Controller {
     }
 
     public function send_message($distributor_id,$agent_id){
+        if(!$this->is_logged_in()){return;}
     	$distributor = $this->dm->get($distributor_id);
     	$agent = $this->am->get($agent_id);
     	$data["distributor_id"] = $distributor["distributor_id"];
@@ -71,6 +75,7 @@ class Distributor extends CI_Controller {
     }
 
     public function do_send_message(){
+        if(!$this->is_logged_in()){return;}
     	$distributor_id = $this->input->post("distributor_id");
     	$distributor_name = $this->input->post("distributor_name");
     	$agent_id = $this->input->post("agent_id");
@@ -83,6 +88,7 @@ class Distributor extends CI_Controller {
     }
 
     public function terminate_contract($distributor_id,$agent_id){
+        if(!$this->is_logged_in()){return;}
     	$data = array();
     	$data["distributor_id"] = $distributor_id;
     	$data["agent_id"] = $agent_id;
@@ -95,6 +101,7 @@ class Distributor extends CI_Controller {
     }
 
     public function view_agent_profile($agent_id,$distributor_id){
+        if(!$this->is_logged_in()){return;}
 		$agent = $this->am->get($agent_id);
 		if(!empty($agent)) {		
 			$city = $this->bd->city($agent["agent_city"]);	
@@ -106,6 +113,7 @@ class Distributor extends CI_Controller {
     }
 
     public function manage_agents($distributor_id){
+        if(!$this->is_logged_in()){return;}
     	$agents = $this->dm->manage_agents($distributor_id);
     	$data = array();
     	$data["agents"] = $agents;
@@ -114,6 +122,7 @@ class Distributor extends CI_Controller {
     }
 
     public function process_contract(){
+        if(!$this->is_logged_in()){return;}
     	$action = $this->uri->segment(3);
     	$contract_id = $this->uri->segment(4);
     	$distributor_id = $this->uri->segment(5);
@@ -122,6 +131,7 @@ class Distributor extends CI_Controller {
     }
 
     public function view_contracts(){
+        if(!$this->is_logged_in()){return;}
     	$distributor_id = $this->uri->segment(3);
     	$pending_contracts = $this->dm->get_contracts($distributor_id,"PENDING");
     	$approved_contracts = $this->dm->get_contracts($distributor_id,"APPROVED");
@@ -143,17 +153,13 @@ class Distributor extends CI_Controller {
     	$distributor_password = $this->input->post("distributor_password");
     	$authenticated = $this->sm->distributor_authenticate($distributor_email,$distributor_password);
     	if($authenticated["status"] === FALSE){
-            $this->nm->notify($authenticated["message"],"Back to Login page","distributor/login",
+            $this->nm->notify($authenticated["message"],"Back to Login page","",
             $this->views["notification"]);        
     	}
     	else{
             $distributor = $this->dm->get_by_email($distributor_email);
             $this->sm->create_distributor_session($distributor);
             redirect("/distributor/personal", "location");
-
-	  //   	$user_data = array("email"=> $distributor_email,"logged_in" => TRUE);
-			// $this->session->set_userdata($user_data);    
-			// redirect("/distributor/personal/".$authenticated["id"], "location");
     	}
     }
 
@@ -192,6 +198,7 @@ class Distributor extends CI_Controller {
 	}
 
 	public function profile(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
 		$distributor_id = $distributor["distributor_id"];
 		$distributor = $this->dm->get($distributor_id);
@@ -241,4 +248,5 @@ class Distributor extends CI_Controller {
             $this->nm->notify("Congratulation you are a registered distributor.","Done","distributor/personal/".$distributor_id,$this->views["notification"]);        
 		}
 	}
+
 }

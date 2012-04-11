@@ -93,6 +93,50 @@
 	}
 	/*end:login page style*/
 
+	/*begin:display form style*/
+	.display_form{
+		padding: 5px 5px 5px 15px;
+		background-color:#F2F2F2;
+		border-bottom:1px solid #aaa;
+	}
+
+	.display_form > fieldset > div > p.label{
+		color:#666666;
+		font-weight:bold;
+		margin:0;
+	}
+
+	.display_form > fieldset > div > p.content{
+		font-weight:bold;
+		margin:0;
+	}
+
+	.display_form > fieldset > div.line {
+		padding:3px;
+		border-bottom:1px solid #ccc;
+	}
+
+	.display_form > fieldset > div.buttons{
+		height:20px;
+	}
+
+	.display_form > fieldset > div.buttons > div.left_block{
+		float:left;
+	}
+
+	.display_form > fieldset > div.buttons > div.right_block{
+		float:right;
+	}
+
+	.display_form > fieldset > legend{
+		font-size:x-large;
+		font-weight:bold;
+		padding-bottom:10px;
+		width:100%;
+	}
+
+	/*end:display form style*/
+
 	/*begin:input form style*/
 	.input_form{
 		padding: 5px 5px 5px 15px;

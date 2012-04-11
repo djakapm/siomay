@@ -19,7 +19,7 @@ class order extends CI_Controller {
         $this->load->model("ordermanager","om");
         $this->load->model("agentmanager","am");
         $this->load->model("notificationmanager","nm");
-        // $this->load->model("securitymanager","sm");
+        $this->load->model("securitymanager","sm");
     }
 
     private function is_logged_in(){
@@ -34,6 +34,7 @@ class order extends CI_Controller {
 
 
     public function delete_order($order_id){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));        
         $distributor_id = $this->input->post("distributor_id");
 
@@ -55,6 +56,7 @@ class order extends CI_Controller {
     }
 
     public function do_delete_order(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));        
         $distributor_id = $this->input->post("distributor_id");
         $order_id = $this->input->post("order_id");
@@ -67,6 +69,7 @@ class order extends CI_Controller {
     }
 
     public function edit_order($order_id){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $products = $this->pm->get_products($distributor_id);
@@ -87,6 +90,7 @@ class order extends CI_Controller {
     }
 
     public function do_edit_order(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));        
         $distributor_id = $this->input->post("distributor_id");
         $order_id = $this->input->post("order_id");
@@ -104,6 +108,7 @@ class order extends CI_Controller {
     }
 
     public function view_orders(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         if(!empty($distributor)) {          
             $data = array();
@@ -119,6 +124,7 @@ class order extends CI_Controller {
     }
 
     public function add_order(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $products = $this->pm->get_products($distributor_id);
@@ -138,6 +144,7 @@ class order extends CI_Controller {
     }
 
     public function do_add_order(){
+        if(!$this->is_logged_in()){return;}
         $distributor = $this->dm->get_by_email($this->session->userdata("email"));
         $distributor_id = $distributor["distributor_id"];
         $product_id = $this->input->post("product_name");

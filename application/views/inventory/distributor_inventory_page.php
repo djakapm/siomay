@@ -32,7 +32,7 @@
 		?>	
 		<tr>
 			<td><input type="checkbox" name="selected_product_id[]" value="<?=$product["product_id"]?>"/></td>
-			<td><a href="<?=site_url("inventory/view_product/".$distributor_id."/".$product["product_id"])?>"><?=$product["product_name"]?></a></td>
+			<td><a href="<?=site_url("inventory/view_product/".$product["product_id"])?>"><?=$product["product_name"]?></a></td>
 			<td><?=word_limiter($product["product_description"],50)?></td>
 			<td align="right"><?=$product["product_stock"]?></td>
 			<td align="right"><?=$product["product_weight"]?></td>
